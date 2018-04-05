@@ -1,5 +1,6 @@
 import random
 import string
+from game import Game
 
 WORDLIST_FILENAME = "palavras.txt"
 
@@ -52,11 +53,12 @@ def getAvailableLetters():
     return available
 
 def hangman(secretWord):
+    game = Game()
 
     guesses = 8
     lettersGuessed = []
     print 'Welcome to the game, Hangam!'
-    print 'I am thinking of a word that is', len(secretWord), ' letters long.'
+    print 'I am thinking of a word (', secretWord,') that is', len(secretWord), 'letters long.' #hide secret word later
     print '-------------'
 
     while  isWordGuessed(secretWord, lettersGuessed) == False and guesses >0:
@@ -76,7 +78,7 @@ def hangman(secretWord):
                 if letter in lettersGuessed:
                     guessed += letter
                 else:
-                    guessed += '_ '
+                    guessed += ' _ '
 
             print 'Oops! You have already guessed that letter: ', guessed
         elif letter in secretWord:
@@ -87,7 +89,7 @@ def hangman(secretWord):
                 if letter in lettersGuessed:
                     guessed += letter
                 else:
-                    guessed += '_ '
+                    guessed += ' _ '
 
             print 'Good Guess: ', guessed
         else:
@@ -99,7 +101,7 @@ def hangman(secretWord):
                 if letter in lettersGuessed:
                     guessed += letter
                 else:
-                    guessed += '_ '
+                    guessed += ' _ '
 
             print 'Oops! That letter is not in my word: ',  guessed
         print '------------'
