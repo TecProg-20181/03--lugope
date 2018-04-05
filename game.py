@@ -1,24 +1,49 @@
+import random
 import string
 
-class Game:
-	WORDLIST_FILENAME = "palavras.txt"
+WORDLIST_FILENAME = "palavras.txt"
 
-	#Overloads init
+class Game:
+	# Overloads init
 	def __init__(self, guessesNumber=8):
 		self.guessesNumber = guessesNumber
 		self.secretWord = self.pickSecretWord()
 		self.lettersGuessed = []
 		self.avaiableLetters = string.ascii_lowercase
+	#--
 
-	#Overloads printing
+	# Overloads printing
 	def __repr__(self):
 		msg = "Hi, my name is %s\n" % self.guessesNumber
 		msg = msg + "Some other shit.\n"
 
 		return msg
+	#--
 
-	#Other functions
+	# Pick a random word from a text file loaded
 	def pickSecretWord(self):
-		word = "aaa"
+		wordList = self.loadWords()
+		word = random.choice(wordList)
+		print "  ", len(wordList), "words loaded."
 
-		return word
+		return word.lower()
+	#--
+
+	# Load text file
+	def loadWords(self):
+		"""
+		Depending on the size of the word list, this function may
+		take a while to finish.
+		"""
+		print "Loading word list from file..."# inFile: file
+		inFile = open(WORDLIST_FILENAME, 'r', 0)
+		# line: string
+		line = inFile.readline()
+		# wordList: list of strings
+		wordList = string.split(line)
+		# Close file
+		inFile.close()
+		
+		return wordList
+	#--
+
