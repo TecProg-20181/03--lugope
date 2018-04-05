@@ -2,21 +2,6 @@ import random
 import string
 from game import Game
 
-def getGuessedWord():
-
-     guessed = ''
-
-
-     return guessed
-
-def getAvailableLetters():
-    import string
-    # 'abcdefghijklmnopqrstuvwxyz'
-    available = string.ascii_lowercase
-
-
-    return available
-
 def hangman():
     game = Game()
 
@@ -27,46 +12,24 @@ def hangman():
     while  game.canGameContinue():
         print 'You have', game.guessesNumber, 'guesses left.'
 
-        available = getAvailableLetters()
-        for letter in available:
+        for letter in game.avaiableLetters:
             if letter in game.lettersGuessed:
-                available = available.replace(letter, '')
+                game.avaiableLetters = game.avaiableLetters.replace(letter, '')
 
-        print 'Available letters', available
+        print 'Available letters', game.avaiableLetters
         letter = raw_input('Please guess a letter: ')
         if letter in game.lettersGuessed:
+            print 'Oops! You have already guessed that letter: ', game.getGessedWord()
 
-            guessed = getGuessedWord()
-            for letter in game.secretWord:
-                if letter in game.lettersGuessed:
-                    guessed += letter
-                else:
-                    guessed += ' _ '
-
-            print 'Oops! You have already guessed that letter: ', guessed
         elif letter in game.secretWord:
             game.lettersGuessed.append(letter)
+            print 'Good Guess: ', game.getGessedWord()
 
-            guessed = getGuessedWord()
-            for letter in game.secretWord:
-                if letter in game.lettersGuessed:
-                    guessed += letter
-                else:
-                    guessed += ' _ '
-
-            print 'Good Guess: ', guessed
         else:
             game.guessesNumber -=1
             game.lettersGuessed.append(letter)
+            print 'Oops! That letter is not in my word: ',  game.getGessedWord()
 
-            guessed = getGuessedWord()
-            for letter in game.secretWord:
-                if letter in game.lettersGuessed:
-                    guessed += letter
-                else:
-                    guessed += ' _ '
-
-            print 'Oops! That letter is not in my word: ',  guessed
         print '------------'
 
     else:

@@ -47,6 +47,18 @@ class Game:
 		return wordList
 	#--
 
+	# Return word guessed so far
+	def getGessedWord(self):
+		guessedWord = ""
+		for letter in self.secretWord:
+			if letter in self.lettersGuessed:
+				guessedWord += letter
+			else:
+				guessedWord += ' _ '
+
+		return guessedWord
+	#--
+
 	# Verify if the Game can keep going on
 	def canGameContinue(self):
 		if not self.isWordGuessed() and self.guessesNumber > 0:
