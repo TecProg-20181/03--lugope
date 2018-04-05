@@ -2,41 +2,6 @@ import random
 import string
 from game import Game
 
-WORDLIST_FILENAME = "palavras.txt"
-
-def loadWords():
-    """
-    Depending on the size of the word list, this function may
-    take a while to finish.
-    """
-    print "Loading word list from file..."
-    # inFile: file
-    inFile = open(WORDLIST_FILENAME, 'r', 0)
-    # line: string
-    line = inFile.readline()
-    # wordlist: list of strings
-    wordlist = string.split(line)
-    print "  ", len(wordlist), "words loaded."
-    return random.choice(wordlist)
-
-
-def isWordGuessed(secretWord, lettersGuessed):
-    secretLetters = []
-
-#    for letter in secretWord:
-#        if letter in secretLetters:
-#            secretLetters.append(letter)
-#        else:
-#            pass
-
-    for letter in secretWord:
-        if letter in lettersGuessed:
-            pass
-        else:
-            return False
-
-    return True
-
 def getGuessedWord():
 
      guessed = ''
@@ -55,13 +20,12 @@ def getAvailableLetters():
 def hangman():
     game = Game()
 
-    game.guessesNumber = 8
     print 'Welcome to the game, Hangam!'
     print 'I am thinking of a word (', game.secretWord,') that is', len(game.secretWord), 'letters long.' #hide secret word later
     print '-------------'
 
-    while  isWordGuessed(game.secretWord, game.lettersGuessed) == False and game.guessesNumber >0:
-        print 'You have ', game.guessesNumber, 'guesses left.'
+    while  game.canGameContinue():
+        print 'You have', game.guessesNumber, 'guesses left.'
 
         available = getAvailableLetters()
         for letter in available:
@@ -106,10 +70,7 @@ def hangman():
         print '------------'
 
     else:
-        if isWordGuessed(game.secretWord, game.lettersGuessed) == True:
-            print 'Congratulations, you won!'
-        else:
-            print 'Sorry, you ran out of guesses. The word was ', game.secretWord, '.'
+        game.endGame()
 
 
 """

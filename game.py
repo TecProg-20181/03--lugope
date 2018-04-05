@@ -5,7 +5,7 @@ WORDLIST_FILENAME = "palavras.txt"
 
 class Game:
 	# Overloads init
-	def __init__(self, guessesNumber=8):
+	def __init__(self, guessesNumber=2):
 		self.guessesNumber = guessesNumber
 		self.secretWord = self.pickSecretWord()
 		self.lettersGuessed = []
@@ -46,4 +46,30 @@ class Game:
 		
 		return wordList
 	#--
+
+	# Verify if the Game can keep going on
+	def canGameContinue(self):
+		if not self.isWordGuessed() and self.guessesNumber > 0:
+			return True
+		else:
+			return False
+	#--
+
+	# Verify if the word was guessed
+	def isWordGuessed(self):
+		for letter in self.secretWord:
+			if letter in self.lettersGuessed:
+				pass
+			else:
+				return False
+
+		return True	
+	#--
+
+	# Finish the game
+	def endGame(self):
+		if self.isWordGuessed():
+			print 'Congratulations, you won!'
+		else:
+			print 'Sorry, you ran out of guesses. The word was', self.secretWord, '.'
 
