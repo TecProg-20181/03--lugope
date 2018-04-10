@@ -55,9 +55,6 @@ coverage.xml
 *.mo
 *.pot
 
-#Text files
-*.txt
-
 # Flask stuff:
 instance/
 .webassets-cache
