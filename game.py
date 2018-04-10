@@ -1,11 +1,11 @@
 import random
 import string
 
-WORDLIST_FILENAME = "palavras.txt"
+WORDLIST_FILENAME = "palavras_test.txt"
 
 class Game:
 	# Overloads init
-	def __init__(self, guessesNumber=2):
+	def __init__(self, guessesNumber=8):
 		self.guessesNumber = guessesNumber
 		self.secretWord = self.pickSecretWord()
 		self.lettersGuessed = []
@@ -84,4 +84,18 @@ class Game:
 			print 'Congratulations, you won!'
 		else:
 			print 'Sorry, you ran out of guesses. The word was', self.secretWord, '.'
+	#--
+
+	# Find out how many different letters are in the secret word
+	def differentLettersNumber(self):
+		if self.secretWord:
+			letters = []
+			for letter in self.secretWord:
+				if letter not in letters:
+					letters.append(letter)
+
+			return len(letters)
+		else:
+			return 0
+	#-
 
