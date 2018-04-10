@@ -7,7 +7,7 @@ def hangman():
 
     print "Welcome to the game, Hangam!"
     print "I am thinking of a word (", game.secretWord,") that is", len(game.secretWord), "letters long." #hide secret word later
-    print "This secret word has", game.differentLettersNumber(), "different letters."
+    print "This secret word has", game.differentLettersNumber(game.secretWord), "different letters."
     print "-------------"
 
     while game.canGameContinue():

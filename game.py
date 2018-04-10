@@ -5,29 +5,32 @@ WORDLIST_FILENAME = "palavras_test.txt"
 
 class Game:
 	# Overloads init
-	def __init__(self, guessesNumber=8):
+	def __init__(self, guessesNumber=4):
 		self.guessesNumber = guessesNumber
 		self.secretWord = self.pickSecretWord()
 		self.lettersGuessed = []
 		self.avaiableLetters = string.ascii_lowercase
-	#--
 
 	# Overloads printing
 	def __repr__(self):
-		msg = "Hi, my name is %s\n" % self.guessesNumber
-		msg = msg + "Some other shit.\n"
+		msg = "Hi, I'm the curent game :D"
 
 		return msg
-	#--
 
 	# Pick a random word from a text file loaded
 	def pickSecretWord(self):
 		wordList = self.loadWords()
-		word = random.choice(wordList)
 		print "  ", len(wordList), "words loaded."
 
-		return word.lower()
-	#--
+		while True:
+			word = random.choice(wordList)
+
+			if self.differentLettersNumber(word) <= self.guessesNumber:
+				return word.lower()
+
+			# else:
+			# 	print "The word", word, "can't be chosen cus the number of different letters", \
+			# 	"are", self.differentLettersNumber(word), "and the number of guesses are", self.guessesNumber
 
 	# Load text file
 	def loadWords(self):
@@ -45,7 +48,6 @@ class Game:
 		inFile.close()
 		
 		return wordList
-	#--
 
 	# Return word guessed so far
 	def getGessedWord(self):
@@ -57,7 +59,6 @@ class Game:
 				guessedWord += ' _ '
 
 		return guessedWord
-	#--
 
 	# Verify if the Game can keep going on
 	def canGameContinue(self):
@@ -65,7 +66,6 @@ class Game:
 			return True
 		else:
 			return False
-	#--
 
 	# Verify if the word was guessed
 	def isWordGuessed(self):
@@ -76,7 +76,6 @@ class Game:
 				return False
 
 		return True	
-	#--
 
 	# Finish the game
 	def endGame(self):
@@ -84,18 +83,16 @@ class Game:
 			print 'Congratulations, you won!'
 		else:
 			print 'Sorry, you ran out of guesses. The word was', self.secretWord, '.'
-	#--
 
-	# Find out how many different letters are in the secret word
-	def differentLettersNumber(self):
-		if self.secretWord:
+	# Find out how many different letters are in the word
+	def differentLettersNumber(self, word):
+		if word:
 			letters = []
-			for letter in self.secretWord:
+			for letter in word:
 				if letter not in letters:
 					letters.append(letter)
 
 			return len(letters)
 		else:
 			return 0
-	#-
 
