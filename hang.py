@@ -1,15 +1,15 @@
-import random
-import string
 from game import Game
 
 def hangman():
     game = Game()
 
+    # Header of the game
     print "Welcome to the game, Hangam!"
-    print "I am thinking of a word (", game.secretWord,") that is", len(game.secretWord), "letters long." #hide secret word later
+    print "I am thinking of a word that is", len(game.secretWord), "letters long."
     print "This secret word has", game.differentLettersNumber(game.secretWord), "different letters."
     print "-------------"
 
+    # Main loop
     while game.canGameContinue():
         print "You have", game.guessesNumber, "guesses left."
 
@@ -18,6 +18,8 @@ def hangman():
                 game.avaiableLetters = game.avaiableLetters.replace(letter, "")
 
         print "Available letters", game.avaiableLetters
+
+        # Get letter by input and verify if the letter belongs to the secret word
         letter = raw_input("Please guess a letter: ")
         if letter in game.lettersGuessed:
             print "Oops! You have already guessed that letter: ", game.getGessedWord()
@@ -27,7 +29,7 @@ def hangman():
             print "Good Guess: ", game.getGessedWord()
 
         else:
-            game.guessesNumber -=1
+            game.guessesNumber -= 1
             game.lettersGuessed.append(letter)
             print "Oops! That letter is not in my word: ",  game.getGessedWord()
 
@@ -38,6 +40,6 @@ def hangman():
 
 
 """
-MAIN()
+Start the game!
 """
 hangman()

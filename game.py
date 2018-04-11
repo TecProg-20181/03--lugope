@@ -5,7 +5,7 @@ WORDLIST_FILENAME = "palavras_test.txt"
 
 class Game:
 	# Overloads init
-	def __init__(self, guessesNumber=4):
+	def __init__(self, guessesNumber=5):
 		self.guessesNumber = guessesNumber
 		self.secretWord = self.pickSecretWord()
 		self.lettersGuessed = []
@@ -20,17 +20,13 @@ class Game:
 	# Pick a random word from a text file loaded
 	def pickSecretWord(self):
 		wordList = self.loadWords()
-		print "  ", len(wordList), "words loaded."
+		print "\t", len(wordList), "words loaded.\n"
 
 		while True:
 			word = random.choice(wordList)
 
 			if self.differentLettersNumber(word) <= self.guessesNumber:
 				return word.lower()
-
-			# else:
-			# 	print "The word", word, "can't be chosen cus the number of different letters", \
-			# 	"are", self.differentLettersNumber(word), "and the number of guesses are", self.guessesNumber
 
 	# Load text file
 	def loadWords(self):
