@@ -1,15 +1,19 @@
 import random
 import string
+import os
+import sys
+from input_handler import InputHandler
 
 WORDLIST_FILENAME = "palavras_test.txt"
 
 class Game:
 	# Overloads init
 	def __init__(self, guessesNumber=5):
-		self.guessesNumber = guessesNumber
+		self.guessesNumber = guessesNumber #With default value of 5
 		self.secretWord = self.pickSecretWord()
-		self.lettersGuessed = []
-		self.avaiableLetters = string.ascii_lowercase
+		self.lettersGuessed = [] #Initiate with no letters guessed
+		self.avaiableLetters = string.ascii_lowercase #All the letters in lower case
+		self.inputHandler = InputHandler(self) #Initiate input handler
 
 	# Overloads printing
 	def __repr__(self):
@@ -20,13 +24,20 @@ class Game:
 	# Pick a random word from a text file loaded
 	def pickSecretWord(self):
 		wordList = self.loadWords()
-		print "\t", len(wordList), "words loaded.\n"
 
-		while True:
-			word = random.choice(wordList)
+		if wordList:
+			print "\t", len(wordList), "words loaded.\n"
 
-			if self.differentLettersNumber(word) <= self.guessesNumber:
-				return word.lower()
+			while True:
+				word = random.choice(wordList)
+
+				if self.differentLettersNumber(word) <= self.guessesNumber:
+					return word.lower()
+		
+		#If there is no word list the Game can't start
+		else:
+			print "Error log: There is no Word List."
+			sys.exit()
 
 	# Load text file
 	def loadWords(self):
@@ -34,16 +45,35 @@ class Game:
 		Depending on the size of the word list, this function may
 		take a while to finish.
 		"""
-		print "Loading word list from file..."# inFile: file
-		inFile = open(WORDLIST_FILENAME, 'r', 0)
-		# line: string
-		line = inFile.readline()
-		# wordList: list of strings
-		wordList = string.split(line)
-		# Close file
-		inFile.close()
+		print "Loading word list from file..." # inFile: file
 		
+		wordList = [] #Initialize wordlist as empty
+
+		#Check if file exist
+		if os.path.exists(WORDLIST_FILENAME):
+			with open(WORDLIST_FILENAME, 'r', 0) as inFile:
+				try:
+					# line: string
+					line = inFile.readline()
+					# wordList: list of strings
+					wordList = string.split(line)
+					# Close file
+					inFile.close()
+
+				except IOError:
+					print "Error log: Could not read file."
+
+		else:
+			print "Error log: File path doesn't exist."
+			
 		return wordList
+
+	#Print game header
+	def printHeader(self):
+		print "Welcome to the game, Hangam!"
+		print "I am thinking of a word that is", len(self.secretWord), "letters long."
+		print "This secret word has", self.differentLettersNumber(self.secretWord), "different letters."
+		print "-------------"
 
 	# Return word guessed so far
 	def getGessedWord(self):
@@ -91,4 +121,12 @@ class Game:
 			return len(letters)
 		else:
 			return 0
+
+	#Subtract guesses number by one
+	def loseOneGuess(self):
+		self.guessesNumber -= 1
+
+		#Minimum guesses number should be 0
+		if self.guessesNumber < 0:
+			self.guessesNumber = 0
 
