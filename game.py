@@ -1,5 +1,6 @@
 import random
 import string
+import os
 
 WORDLIST_FILENAME = "palavras_test.txt"
 
@@ -34,14 +35,26 @@ class Game:
 		Depending on the size of the word list, this function may
 		take a while to finish.
 		"""
-		print "Loading word list from file..."# inFile: file
-		inFile = open(WORDLIST_FILENAME, 'r', 0)
-		# line: string
-		line = inFile.readline()
-		# wordList: list of strings
-		wordList = string.split(line)
-		# Close file
-		inFile.close()
+		print "Loading word list from file..." # inFile: file
+		
+		wordList = None #Initialize wordlist as null
+
+		if os.path.exists(WORDLIST_FILENAME):
+			inFile = open(WORDLIST_FILENAME, 'r', 0)
+
+			# line: string
+			line = inFile.readline()
+			# wordList: list of strings
+			wordList = string.split(line)
+			# Close file
+			inFile.close()
+
+		else:
+			print "Path doesn't exist"
+			
+		#Dont let the game start if it can't open the file whit the word list 
+		# else:
+		# 	self.guessesNumber = 0
 		
 		return wordList
 
