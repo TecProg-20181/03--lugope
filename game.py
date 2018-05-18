@@ -93,6 +93,7 @@ class Game:
 			return 0
 
 	def loseOneGuess(self):
+		#Aways subtract the guess by one
 		self.guessesNumber -= 1
 
 		#Minimum guesses number should be 0
