@@ -30,7 +30,7 @@ class InputHandler:
 
 	# Check if the input is a minuscle letter
 	def isValidInput(self, letter):
-		if letter.isupper():
+		if letter.isupper() or letter.isdigit():
 			print "Please, tipe a minuscle letter."
 			return False
 
