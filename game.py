@@ -6,10 +6,10 @@ WORDLIST_FILENAME = "palavras_test.txt"
 class Game:
 	# Overloads init
 	def __init__(self, guessesNumber=5):
-		self.guessesNumber = guessesNumber
+		self.guessesNumber = guessesNumber #With default value of 5
 		self.secretWord = self.pickSecretWord()
-		self.lettersGuessed = []
-		self.avaiableLetters = string.ascii_lowercase
+		self.lettersGuessed = [] #Initiate with no letters guessed
+		self.avaiableLetters = string.ascii_lowercase #All the letters in lower case
 
 	# Overloads printing
 	def __repr__(self):
