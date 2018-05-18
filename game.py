@@ -40,22 +40,21 @@ class Game:
 		wordList = None #Initialize wordlist as null
 
 		if os.path.exists(WORDLIST_FILENAME):
-			inFile = open(WORDLIST_FILENAME, 'r', 0)
+			with open(WORDLIST_FILENAME, 'r', 0) as inFile:
+				try:
+					# line: string
+					line = inFile.readline()
+					# wordList: list of strings
+					wordList = string.split(line)
+					# Close file
+					inFile.close()
 
-			# line: string
-			line = inFile.readline()
-			# wordList: list of strings
-			wordList = string.split(line)
-			# Close file
-			inFile.close()
+				except IOError:
+					print "Error log: Could not read file"
 
 		else:
-			print "Path doesn't exist"
+			print "Error log: Path doesn't exist"
 			
-		#Dont let the game start if it can't open the file whit the word list 
-		# else:
-		# 	self.guessesNumber = 0
-		
 		return wordList
 
 	# Return word guessed so far
