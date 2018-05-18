@@ -66,6 +66,13 @@ class Game:
 			
 		return wordList
 
+	#Print game header
+	def printHeader(self):
+		print "Welcome to the game, Hangam!"
+		print "I am thinking of a word that is", len(self.secretWord), "letters long."
+		print "This secret word has", self.differentLettersNumber(self.secretWord), "different letters."
+		print "-------------"
+
 	# Return word guessed so far
 	def getGessedWord(self):
 		guessedWord = ""
@@ -113,8 +120,8 @@ class Game:
 		else:
 			return 0
 
+	#Subtract guesses number by one
 	def loseOneGuess(self):
-		#Aways subtract the guess by one
 		self.guessesNumber -= 1
 
 		#Minimum guesses number should be 0
