@@ -1,6 +1,7 @@
 import random
 import string
 import os
+import sys
 
 WORDLIST_FILENAME = "palavras_test.txt"
 
@@ -21,13 +22,20 @@ class Game:
 	# Pick a random word from a text file loaded
 	def pickSecretWord(self):
 		wordList = self.loadWords()
-		print "\t", len(wordList), "words loaded.\n"
 
-		while True:
-			word = random.choice(wordList)
+		if wordList:
+			print "\t", len(wordList), "words loaded.\n"
 
-			if self.differentLettersNumber(word) <= self.guessesNumber:
-				return word.lower()
+			while True:
+				word = random.choice(wordList)
+
+				if self.differentLettersNumber(word) <= self.guessesNumber:
+					return word.lower()
+		
+		#If there is no word list the Game can't start
+		else:
+			print "Error log: There is no Word List."
+			sys.exit()
 
 	# Load text file
 	def loadWords(self):
@@ -37,8 +45,9 @@ class Game:
 		"""
 		print "Loading word list from file..." # inFile: file
 		
-		wordList = None #Initialize wordlist as null
+		wordList = [] #Initialize wordlist as empty
 
+		#Check if file exist
 		if os.path.exists(WORDLIST_FILENAME):
 			with open(WORDLIST_FILENAME, 'r', 0) as inFile:
 				try:
@@ -50,10 +59,10 @@ class Game:
 					inFile.close()
 
 				except IOError:
-					print "Error log: Could not read file"
+					print "Error log: Could not read file."
 
 		else:
-			print "Error log: Path doesn't exist"
+			print "Error log: File path doesn't exist."
 			
 		return wordList
 
