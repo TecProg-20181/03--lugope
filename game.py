@@ -2,6 +2,7 @@ import random
 import string
 import os
 import sys
+from input_handler import InputHandler
 
 WORDLIST_FILENAME = "palavras_test.txt"
 
@@ -12,6 +13,7 @@ class Game:
 		self.secretWord = self.pickSecretWord()
 		self.lettersGuessed = [] #Initiate with no letters guessed
 		self.avaiableLetters = string.ascii_lowercase #All the letters in lower case
+		self.inputHandler = InputHandler(self) #Initiate input handler
 
 	# Overloads printing
 	def __repr__(self):
