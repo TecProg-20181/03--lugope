@@ -92,3 +92,10 @@ class Game:
 		else:
 			return 0
 
+	def loseOneGuess(self):
+		self.guessesNumber -= 1
+
+		#Minimum guesses number should be 0
+		if self.guessesNumber < 0:
+			self.guessesNumber = 0
+

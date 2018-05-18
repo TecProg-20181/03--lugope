@@ -29,7 +29,7 @@ def hangman():
             print "Good Guess: ", game.getGessedWord()
 
         else:
-            game.guessesNumber -= 1
+            game.loseOneGuess()
             game.lettersGuessed.append(letter)
             print "Oops! That letter is not in my word: ",  game.getGessedWord()
 
